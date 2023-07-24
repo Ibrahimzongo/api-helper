@@ -47,6 +47,7 @@ $updatedItem = $apiHelper->updateItem($itemIdToUpdate, $updatedItemData);
 $itemIdToDelete = 1;
 $deletedItem = $apiHelper->deleteItem($itemIdToDelete);
 
+```
 ## Contributions
 Les contributions sont les bienvenues ! Si vous souhaitez améliorer ce projet ou signaler des problèmes, n'hésitez pas à ouvrir une demande de pull ou un ticket d'issue.
 
