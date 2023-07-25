@@ -1,6 +1,6 @@
-# APIHelper
+# APIClient
 
-APIHelper est une classe PHP conçue pour faciliter les opérations CRUD (Create, Read, Update, Delete) sur une API en utilisant des requêtes HTTP à l'aide de cURL.
+APIClient est une classe PHP conçue pour faciliter les opérations CRUD (Create, Read, Update, Delete) sur une API en utilisant des requêtes HTTP.
 
 ## Fonctionnalités
 
@@ -9,43 +9,43 @@ APIHelper est une classe PHP conçue pour faciliter les opérations CRUD (Create
 
 ## Exigences
 
-- PHP 5.6 ou supérieur
-- L'extension cURL doit être activée
+- PHP 7.2.5 ou supérieur
+- guzzlehttp/guzzle 7.7
 
 ## Installation
 
 1. Clonez ce dépôt vers votre projet : https://github.com/Ibrahimzongo/api-helper.git
 
-2. Incluez la classe APIHelper dans votre code PHP :
+2. Incluez la classe APIClient dans votre code PHP :
 
 ```php
-require_once 'chemin_vers_la_classe/APIHelper.php';
+require_once 'chemin_vers_la_classe/APIClient.php';
 
-// Créez une instance d'APIHelper en spécifiant l'URL de votre API
-$apiUrl = 'https://example-api.com/items/';
-$apiHelper = new APIHelper($apiUrl);
+// Utilisation de la classe ApiClient pour consommer l'API
 
-// Exemples d'utilisation
+$baseURL = 'http://localhost:8000'; // Remplacez cela par l'URL de votre API
+$apiClient = new ApiClient($baseURL);
 
-// Créer un nouvel élément
-$newItemData = array('name' => 'Nouvel élément', 'description' => 'Ceci est un nouvel élément.');
-$createdItem = $apiHelper->createItem($newItemData);
-
-// Lire tous les éléments
-$items = $apiHelper->readAllItems();
-
-// Lire un élément par son ID
-$itemId = 1;
-$item = $apiHelper->readItemById($itemId);
-
-// Mettre à jour un élément
-$itemIdToUpdate = 1;
-$updatedItemData = array('name' => 'Nom mis à jour', 'description' => 'Description mise à jour.');
-$updatedItem = $apiHelper->updateItem($itemIdToUpdate, $updatedItemData);
-
-// Supprimer un élément
-$itemIdToDelete = 1;
-$deletedItem = $apiHelper->deleteItem($itemIdToDelete);
+// Authentification
+if ($apiClient->authenticate('nom_d_utilisateur', 'mot_de_passe')) {
+    //Exemple d'utilisation des méthodes de la classe ApiClient
+    $allUsers = $apiClient->getAllUsers();
+    $userDetails = $apiClient->getOneUser('azongo');
+    $newUserData = [
+        'username' => 'nom_d_utilisateur',
+        'password' => 'mot_de_passe',
+    ];
+    $createdUser = $apiClient->createUser($newUserData);
+    $usernameToUpdate = 'nom_utilisateur_a_modifier';
+    $updatedUserData = [
+        'password' => 'nouveau_mot_de_passe',
+    ];
+    $updatedUser = $apiClient->updateUser($usernameToUpdate, $updatedUserData);
+    $usernameToDelete = 'nom_utilisateur_a_supprimer';
+    $deleteResult = $apiClient->deleteUser($usernameToDelete);
+} else {
+    echo 'Échec de l\'authentification.';
+}
 
 ```
 ## Contributions
